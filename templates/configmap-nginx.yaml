@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{.Release.Name}}-gitpage-nginx-configuration
+  labels:
+    app: {{.Release.Name}}-gitpage
+data:
+  default.conf: {{- .Values.deployment.nginxConfig | toYaml | indent 1 }}

@@ -1,0 +1,50 @@
+deployment:
+  sleepStart: false
+  image:
+    repository: docker.io/nginxinc/nginx-unprivileged
+    tag: alpine3.23-otel
+  ports:
+    # default Port based on nginxConfig
+    - name: http
+      protocol: "TCP"
+      port: 8080
+      targetPort: 8080
+  nginxConfig: |-
+    server {
+        listen       8080;
+        server_name  *;
+
+        location / {
+            root   /usr/share/nginx/html;
+            index  index.html;
+        }
+    }
+
+service:
+  loadbalancer:
+    enabled: false
+    ip: "127.0.0.1"
+    annotations: {}
+      # examples
+      # uncomment when using cilium
+      #io.cilium/lb-ipam-ips: "{{.Values.service.loadbalancer.ip}}"
+      #io.cilium/lb-ipam-sharing-key: "{{.Release.Name}}-nexus"
+
+ingresses:
+  - enabled: true
+    hostname: page.local.lan
+    ingressClassName: cilium
+    #customPort: 8081
+    annotations: {}
+      # cert-manager.io/cluster-issuer: selfsigned-issuer
+
+sync:
+  image:
+    # Docker Image: https://hub.docker.com/r/ubuntu/git-sync
+    # Git Sync: https://github.com/kubernetes/git-sync
+    repository: docker.io/ubuntu/git-sync
+    tag: 4.5-24.04_stable
+  args:
+    #TODO: add a real example repo here
+    repo: https://github.com/some_random/repo.git
+    branch: main
