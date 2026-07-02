@@ -31,7 +31,7 @@ service:
       #io.cilium/lb-ipam-sharing-key: "{{.Release.Name}}-nexus"
 
 ingresses:
-  - enabled: true
+  - enabled: false
     hostname: page.local.lan
     ingressClassName: cilium
     #customPort: 8081
