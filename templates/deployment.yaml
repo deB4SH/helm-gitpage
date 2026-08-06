@@ -31,10 +31,17 @@ spec:
             - "--ref={{ .Values.sync.args.branch }}"
             - "--period=10s"
             - "--root=/data"
+          securityContext:
+            runAsUser: 65533
           volumeMounts:
             - name: data
               mountPath: "/data"
               readOnly: false
+            {{- if .Values.sync.ssh.enabled }}
+            - name: git-secret
+              mountPath: /etc/git-secret
+              readOnly: true
+            {{- end }}
         - name: nginx
           image: {{ .Values.deployment.image.repository }}:{{ .Values.deployment.image.tag }}
           imagePullPolicy: IfNotPresent
@@ -54,9 +61,21 @@ spec:
               readOnly: false
             - name: config
               mountPath: /etc/nginx/conf.d
+      securityContext:
+        fsGroup: 65533
       volumes:
         - name: data
           emptyDir: {}
         - name: config
           configMap:
             name: {{.Release.Name}}-gitpage-nginx-configuration
+        {{- if .Values.sync.ssh.enabled }}
+        - name: git-secret
+          secret:
+            {{- if .Values.sync.ssh.reference.enabled }}
+            secretName: {{.Values.sync.ssh.reference.secretName}}
+            {{- else if .Values.sync.ssh.direct.enabled }}
+            secretName: {{.Release.Name}}-ssh-key
+            {{- end }}
+            defaultMode: 0400
+        {{- end}}

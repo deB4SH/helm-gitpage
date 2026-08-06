@@ -54,6 +54,7 @@ sync:
     # please do not use outside of any integration-testing environment, please consider using any sort of external secrets management like external-secrets or sealed-secrets
     direct:
       enabled: false
+      #example cmd: cat ~/.ssh/id_rsa | base64 -w0
       sshcontentbase64: ""
     reference:
       enabled: false
