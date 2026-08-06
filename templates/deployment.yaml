@@ -16,8 +16,8 @@ spec:
     metadata:
       labels:
         app: {{.Release.Name}}-gitpage
-        annotations:
-          checksum/configuration: {{ include (print $.Template.BasePath "/configmap-nginx.yaml") . | sha256sum }}
+      annotations:
+        checksum/configuration: {{ include (print $.Template.BasePath "/configmap-nginx.yaml") . | sha256sum }}
     spec:
       affinity:
         {{- toYaml .Values.deployment.affinity | nindent 12 }}
