@@ -2,12 +2,12 @@ name: helm-package-and-deploy
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - "*"
 
 jobs:
   package-and-deploy:
-    uses: Public-Actions/helm-package-deploy/.gitea/workflows/package-and-deploy.yaml@release/1.0.0
+    uses: Public-Actions/helm-package-deploy/.gitea/workflows/package-and-deploy.yaml@release/1.0.1
     secrets: inherit
     with:
       buildImage: ${{ vars.HELM_IMAGE }}
