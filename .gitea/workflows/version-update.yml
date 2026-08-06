@@ -7,7 +7,7 @@ on:
 
 jobs:
   update-version:
-    uses: Public-Actions/helm-version-update/.gitea/workflows/update-version.yaml@release/0.0.4
+    uses: Public-Actions/helm-version-update/.gitea/workflows/update-version.yaml@release/0.0.5
     secrets: inherit
     with:
       buildImage: ${{ vars.HELM_IMAGE }}
