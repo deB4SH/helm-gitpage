@@ -12,6 +12,7 @@ deployment:
   nginxConfig: |-
     server {
         listen       8080;
+        server_name _;
 
         location / {
             root   /usr/share/nginx/html;
