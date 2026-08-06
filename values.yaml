@@ -55,3 +55,6 @@ sync:
     direct:
       enabled: false
       sshcontentbase64: ""
+    reference:
+      enabled: false
+      secretName: ""
