@@ -1,0 +1,13 @@
+name: helm-package-and-deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-version:
+    uses: Public-Actions/helm-version-update/.gitea/workflows/update-version.yaml@release/0.0.1
+    secrets: inherit
+    with:
+      buildImage: ${{ vars.HELM_IMAGE }}
