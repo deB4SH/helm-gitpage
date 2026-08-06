@@ -23,7 +23,7 @@ spec:
         {{- toYaml .Values.deployment.affinity | nindent 12 }}
       containers:
         - name: sync
-          image: {{ .Values.sync.image.repository }}:{{ .Values.sync.image.tag }}
+          image: {{.Values.sync.image.repository}}:{{.Values.sync.image.tag}}
           command: [ "git-sync"]
           args:
             - "--repo={{ .Values.sync.args.repo }}"
