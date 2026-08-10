@@ -20,8 +20,10 @@ spec:
       annotations:
         checksum/configuration: {{ include (print $.Template.BasePath "/configmap-nginx.yaml") . | sha256sum }}
     spec:
+      securityContext:
+        {{- toYaml .Values.deployment.podSecurityContext | nindent 8 }}
       affinity:
-        {{- toYaml .Values.deployment.affinity | nindent 12 }}
+        {{- toYaml .Values.deployment.affinity | nindent 8 }}
       containers:
         - name: sync
           image: {{.Values.sync.image.repository}}:{{.Values.sync.image.tag}}
@@ -32,7 +34,7 @@ spec:
             - "--period=10s"
             - "--root=/data"
           securityContext:
-            runAsUser: 65533
+            {{- toYaml .Values.deployment.securityContext | nindent 12 }}
           volumeMounts:
             - name: data
               mountPath: "/data"
@@ -55,6 +57,8 @@ spec:
             - name: {{ .name }}
               containerPort: {{ .port }}
             {{- end }}
+          securityContext:
+            {{- toYaml .Values.deployment.securityContext | nindent 12 }}
           volumeMounts:
             - name: data
               mountPath: "/usr/share/nginx/html"
