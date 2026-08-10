@@ -27,16 +27,15 @@ spec:
         - name: sync
           image: {{.Values.sync.image.repository}}:{{.Values.sync.image.tag}}
           command: [ "git-sync"]
-          env:
-            {{- if .Values.sync.ssh.enabled }}
-            - name: GITSYNC_SSH_KEY_FILE
-              value: /etc/git-secret/ssh
-            {{- end }}
           args:
             - "--repo={{ .Values.sync.args.repo }}"
             - "--ref={{ .Values.sync.args.branch }}"
             - "--period=10s"
             - "--root=/data"
+            {{- if .Values.sync.ssh.enabled }}
+            --ssh-key-file /etc/git-secret/ssh
+            {{- end }}
+            --max-failures {{.Values.sync.configuration.maxFailures}}
           securityContext:
             {{- toYaml .Values.deployment.securityContext | nindent 12 }}
           volumeMounts:

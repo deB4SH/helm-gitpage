@@ -57,6 +57,12 @@ ingresses:
       # cert-manager.io/cluster-issuer: selfsigned-issuer
 
 sync:
+  configuration:
+    #The number of consecutive failures allowed before aborting.
+    #Setting this to a negative value will retry forever.  If not
+    #specified, this defaults to 0, meaning any sync failure will
+    #terminate git-sync.
+    maxFailures: 0
   image:
     # Docker Image: https://hub.docker.com/r/ubuntu/git-sync
     # Git Sync: https://github.com/kubernetes/git-sync
