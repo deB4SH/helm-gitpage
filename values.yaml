@@ -21,7 +21,7 @@ deployment:
     capabilities:
       drop:
         - ALL
-    readOnlyRootFilesystem: true
+    readOnlyRootFilesystem: false
     runAsUser: 65533
     runAsNonRoot: true
     runAsGroup: 65533
