@@ -16,7 +16,6 @@ spec:
     metadata:
       labels:
         app: {{.Release.Name}}-gitpage
-        dummy: change2
       annotations:
         checksum/configuration: {{ include (print $.Template.BasePath "/configmap-nginx.yaml") . | sha256sum }}
     spec:
