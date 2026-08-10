@@ -33,9 +33,9 @@ spec:
             - "--period=10s"
             - "--root=/data"
             {{- if .Values.sync.ssh.enabled }}
-            --ssh-key-file /etc/git-secret/ssh
+            - "--ssh-key-file /etc/git-secret/ssh"
             {{- end }}
-            --max-failures {{.Values.sync.configuration.maxFailures}}
+            - "--max-failures {{.Values.sync.configuration.maxFailures}}"
           securityContext:
             {{- toYaml .Values.deployment.securityContext | nindent 12 }}
           volumeMounts:
