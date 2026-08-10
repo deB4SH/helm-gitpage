@@ -32,9 +32,7 @@ spec:
             - "--ref={{ .Values.sync.args.branch }}"
             - "--period=10s"
             - "--root=/data"
-            {{- if .Values.sync.ssh.enabled }}
-            - "--ssh-key-file [/etc/git-secret/ssh]"
-            {{- end }}
+            - "--ssh-known-hosts {{.Values.sync.configuration.enableSshKnownHosts}}"
             - "--max-failures {{.Values.sync.configuration.maxFailures}}"
           securityContext:
             {{- toYaml .Values.deployment.securityContext | nindent 12 }}
