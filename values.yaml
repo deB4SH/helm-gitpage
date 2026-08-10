@@ -25,6 +25,8 @@ deployment:
     runAsUser: 65533
     runAsNonRoot: true
     runAsGroup: 65533
+    seccompProfile:
+      type: RuntimeDefault
   nginxConfig: |-
     server {
         listen       8080;
