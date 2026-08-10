@@ -1,7 +1,7 @@
 apiVersion: v2
 name: gitpage
 description: A helm chart to host our webpage provided with a git repository.
-version: 1.0.11
+version: 1.0.12
 maintainers:
   - name: deB4SH
     url: https://github.com/deB4SH
