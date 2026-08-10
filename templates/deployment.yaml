@@ -32,8 +32,8 @@ spec:
             - "--ref={{ .Values.sync.args.branch }}"
             - "--period=10s"
             - "--root=/data"
-            - "--ssh-known-hosts {{.Values.sync.configuration.enableSshKnownHosts}}"
-            - "--max-failures {{.Values.sync.configuration.maxFailures}}"
+            - "--ssh-known-hosts={{.Values.sync.configuration.enableSshKnownHosts}}"
+            - "--max-failures={{.Values.sync.configuration.maxFailures}}"
           securityContext:
             {{- toYaml .Values.deployment.securityContext | nindent 12 }}
           volumeMounts:
