@@ -34,9 +34,6 @@ spec:
             - "--root=/data"
             - "--ssh-known-hosts={{.Values.sync.configuration.enableSshKnownHosts}}"
             - "--max-failures={{.Values.sync.configuration.maxFailures}}"
-            {{- if .Values.sync.ssh.enabled}}
-            - "--add-user=true"
-            {{- end }}
           securityContext:
             {{- toYaml .Values.deployment.securityContext | nindent 12 }}
           volumeMounts:
